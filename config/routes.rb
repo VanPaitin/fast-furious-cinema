@@ -4,7 +4,9 @@ Rails.application.routes.draw do
   end
   namespace :api do
     namespace :v1 do
-      resources :movies, only: [:index, :show, :update]
+      resources :movies, only: [:index, :show, :update] do
+        post :rating, on: :member
+      end
     end
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

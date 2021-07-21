@@ -18,5 +18,6 @@ RSpec.describe 'get movie show_times', type: :request do
     it { expect(json(response).first[:attributes][:imdb_id]).to eq movie.imdb_id }
     it { expect(json(response).first[:attributes]).to have_key(:show_times) }
     it { expect(json(response).first[:attributes][:show_times].length).to eq 2 }
+    it { expect(json(response).first[:attributes]).to have_key(:rating) }
   end
 end

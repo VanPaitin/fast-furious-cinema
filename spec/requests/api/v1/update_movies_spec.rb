@@ -6,7 +6,7 @@ RSpec.describe "update movie details", type: :request do
 
   context 'when user is not authenticated' do
     before do
-      put url, params: { details: [] }
+      put url, params: { details_attributes: [] }
     end
 
     it { expect(response).to have_http_status(401) }
