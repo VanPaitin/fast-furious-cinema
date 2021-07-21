@@ -63,7 +63,11 @@ RSpec.configure do |config|
   Shoulda::Matchers.configure do |config|
     config.integrate do |with|
       with.test_framework :rspec
-      with.library :rails
+      with.library :active_record
+      with.library :active_model
     end
+  end
+  def json(response)
+    JSON.parse(response.body, symbolize_names: true)[:data]
   end
 end

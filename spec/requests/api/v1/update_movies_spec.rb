@@ -37,6 +37,14 @@ RSpec.describe "update movie details", type: :request do
         before { request.call }
 
         it { expect(response).to have_http_status(200) }
+
+        describe 'json response should contain movie title and upcoming times' do
+          it { expect(json(response)[:type]).to eq 'movie' }
+          it { expect(json(response)[:attributes]).to have_key(:title) }
+          it { expect(json(response)[:attributes]).to have_key(:imdb_id) }
+          it { expect(json(response)[:attributes]).to have_key(:show_times) }
+          it { expect(json(response)[:attributes][:show_times].count).to eq 2 }
+        end
       end
 
       describe 'successful movie detail creation' do

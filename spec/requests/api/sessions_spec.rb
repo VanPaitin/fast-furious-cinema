@@ -48,10 +48,19 @@ RSpec.describe 'admin user sign out', type: :request do
   end
   let(:auth_headers) { Devise::JWT::TestHelpers.auth_headers(headers, admin_user) }
   let(:url) { '/api/admin_users/sign_out' }
+  let(:request) do
+    proc { delete url, headers: auth_headers }
+  end
 
-  it 'returns 204, no content' do
-    delete url, headers: auth_headers
+  describe 'returns 204, no content' do
+    before do
+      request.call
+    end
 
-    expect(response).to have_http_status(204)
+    it { expect(response).to have_http_status(204) }
+  end
+
+  describe 'a denied token is created' do
+    it { expect { request.call }.to change(JwtDenylist, :count).by 1 }
   end
 end
